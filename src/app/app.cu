@@ -106,8 +106,18 @@ void Application::compute()
 		cudaGraphicsSubResourceGetMappedArray(&texturePtr,
 		                                      m_cudaTextureResource, 0, 0);
 
-		cudaMemcpyToArray(texturePtr, 0, 0, m_cudaDestResource,
-		                  getTextureDataSize(), cudaMemcpyDeviceToDevice);
+		const size_t pixelSize = sizeof(GLubyte) * 4;
+		const size_t widthBytes = pixelSize * m_displayWidth;
+		const size_t srcPitchBytes = pixelSize * m_displayWidth;
+		const size_t heightRows = m_displayHeight;
+		cudaMemcpy2DToArray(texturePtr,         // dst
+		                    0,                  // wOffset
+		                    0,                  // hOffset
+		                    m_cudaDestResource, // src
+		                    srcPitchBytes,      // source picth
+		                    widthBytes,         // width
+		                    heightRows,         // height,
+		                    cudaMemcpyDefault);
 
 		cudaGraphicsUnmapResources(1, &m_cudaTextureResource, 0);
 	}
