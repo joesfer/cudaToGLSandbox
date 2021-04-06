@@ -1,7 +1,7 @@
 # CUDA/GL Sandbox
 
 Basic scaffolding playground with CUDA and OpenGL. It follows the interop code
-model laid in [nVidia's SimpleCUDA2GL CUDA example](https://github.com/NVIDIA/cuda-samples)
+model follows [SimpleCUDA2GL](https://github.com/Forceflow/cuda2GLcore) example.
 
 ## Dependencies
 
